@@ -14,6 +14,7 @@ with open('三体.txt', 'rb') as f:
 
 # 打开wav格式的歌曲文件，读取数据
 with wave.open("音乐.wav", "rb") as f:
+    attrib = f.getparams()    # 获取音频属性 
     wav_data = bytearray( f.readframes(-1) )
 
 # 隐藏txt_data中的数据到wav_data中
@@ -22,10 +23,7 @@ for index in range(len(txt_data)):
     
 # 生成新的歌曲文件
 with wave.open("隐藏后-音乐.wav", "wb") as f:
-    f.setnchannels(2)       # 双声道
-    f.setsampwidth(2)       # 采样数据为两个字节
-    f.setframerate(22050)   # 采样率
-    
+    f.setparams(attrib)     # 设置音频属性    
     f.writeframes(wav_data) # 写入数据
 
 
